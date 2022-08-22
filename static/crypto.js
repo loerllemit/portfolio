@@ -1,55 +1,87 @@
-window.addEventListener("load", (event) => {
-  let socket = createws(asset, interval);
-});
+// window.addEventListener("load", (event) => {
+//   // let socket = createws(asset, interval);
+// });
 
 var asset = document.querySelector('input[name="options"]:checked').value;
 var interval = "1m";
-let elements = document.querySelectorAll('input[name="options"]');
+let coins = document.querySelectorAll('input[name="options"]');
 
-async function makeRequest(url, method, body) {
-  let headers = {
-    "X-Requested-With": "XMLHttpRequest",
-    "Content-Type": "application/json",
-  };
+const domElement = document.getElementById("tvchart");
+const chart = LightweightCharts.createChart(domElement, {
+  // width: 800,
+  height: 600,
+  timeScale: {
+    timeVisible: true,
+    secondsVisible: false,
+  },
+  layout: {
+    background: { type: "Solid", color: "rgba(43, 43, 67, 0.1)" },
+    textColor: "white",
+  },
+  grid: {
+    vertLines: { visible: false },
+    horzLines: { visible: false },
+  },
+  watermark: {
+    visible: true,
+    fontSize: 150,
+    horzAlign: "center",
+    vertAlign: "center",
+    color: "rgba(222, 20, 218, 0.45)",
+    text: `${asset.toUpperCase()}`,
+    fontFamily: "Roboto",
+    fontStyle: "bold",
+  },
+});
 
-  if (method == "post") {
-    const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
-    headers["X-CSRFToken"] = csrf;
-  }
-  let response = await fetch(url, {
-    method: method,
-    headers: headers,
-    body: body,
+function initchart() {
+  var candleSeries = chart.addCandlestickSeries({
+    upColor: "#00bdfc",
+    downColor: "#fc2200",
   });
 
-  return await response.json();
-  //   console.log(data);
+  var volumeSeries = chart.addHistogramSeries({
+    color: "yellow",
+    priceFormat: {
+      type: "volume",
+    },
+    priceScaleId: "",
+    scaleMargins: {
+      top: 0.8,
+      bottom: 0,
+    },
+  });
+  return [candleSeries, volumeSeries];
 }
 
-async function getNumber() {
-  const data = await makeRequest("/asyncwait", "get");
-  let ul_left = document.getElementById("left");
-  let li = document.createElement("li");
-  li.addEventListener("click", getFloatNumber);
-  li.innerHTML = await data["number"];
-  ul_left.appendChild(li);
-}
+function fetchws(asset, interval) {
+  // get historical data from REST API
+  fetch(
+    `https://api.binance.com/api/v3/klines?symbol=${asset.toUpperCase()}&interval=${interval}&limit=1000`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const cdata = data.map((d) => {
+        return {
+          time: d[0] / 1000 + 8 * 60 * 60, //offset timezone for Asia/Manila
+          open: parseFloat(d[1]),
+          high: parseFloat(d[2]),
+          low: parseFloat(d[3]),
+          close: parseFloat(d[4]),
+        };
+      });
+      const cvol = data.map((d) => {
+        return {
+          time: d[0] / 1000 + 8 * 60 * 60, //offset timezone for Asia/Manila
+          value: parseFloat(d[5]),
+        };
+      });
+      candleSeries.setData(cdata);
+      volumeSeries.setData(cvol);
+    })
+    .catch((err) => console.log(err));
 
-async function getFloatNumber(e) {
-  let number = e.target.innerText;
-  let data = await makeRequest(
-    "/asyncwait",
-    "post",
-    JSON.stringify({ number: number })
-  );
-  console.log(data.response);
-  let ul_right = document.getElementById("right");
-  let li = document.createElement("li");
-  li.innerText = data["float"];
-  ul_right.appendChild(li);
-}
-
-function createws(asset, interval) {
+  // stream from websocket
   socket = new WebSocket(
     `wss://stream.binance.com:9443/ws/${asset.toLowerCase()}@kline_${interval}`
   );
@@ -67,17 +99,30 @@ function createws(asset, interval) {
       time: data.k.t / 1000 + 8 * 60 * 60, //offset timezone for Asia/Manila
       value: parseFloat(data.k.v),
     };
+    candleSeries.update(cdata_upd);
+    volumeSeries.update(cvol_upd);
     console.log(cdata_upd);
   };
   return socket;
 }
 
-for (let i = 0; i < elements.length; i++) {
-  elements[i].addEventListener("change", function () {
-    let val = this.value; // this == the clicked radio,
-    socket.close();
-    socket = createws(val, interval);
+// initialize the chart, fetch and websocket
+candleSeries = initchart()[0];
+volumeSeries = initchart()[1];
+socket = fetchws(asset, interval);
 
-    console.log(val);
+for (let i = 0; i < coins.length; i++) {
+  coins[i].addEventListener("change", function () {
+    let asset = this.value; // this == the clicked radio,
+    chart.removeSeries(candleSeries);
+    chart.removeSeries(volumeSeries);
+    socket.close();
+
+    candleSeries = initchart()[0];
+    volumeSeries = initchart()[1];
+    socket = fetchws(asset, interval);
+    // socket = createws(asset, interval);
+
+    console.log(asset);
   });
 }
