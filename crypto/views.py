@@ -12,7 +12,7 @@ class AjaxHandler(View):
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return JsonResponse({"number": number})
 
-        return render(request, "asyncwait.html")
+        return render(request, "crypto.html")
 
     def post(self, request):
         data = json.loads(request.body)
