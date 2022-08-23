@@ -6,13 +6,12 @@ from django.shortcuts import render, HttpResponse
 def home(request):
     # return HttpResponse("This is my homepage (/) ")
     context = {"name": "Harry", "course": "Django"}
-    return render(request, "home1.html", context)
+    return render(request, "home.html", context)
 
 
 def about(request):
     # return HttpResponse("This is my about page(/about) ")
-    # return render(request, "about.html")
-    return render(request, "home.html")
+    return render(request, "about.html")
 
 
 def projects(request):

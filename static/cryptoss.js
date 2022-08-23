@@ -8,8 +8,8 @@ let coins = document.querySelectorAll('input[name="options"]');
 
 const domElement = document.getElementById("tvchart");
 
-function initchart() {
-  var chart = LightweightCharts.createChart(domElement, {
+function initchart(asset) {
+  let chart = LightweightCharts.createChart(domElement, {
     // width: 800,
     height: 600,
     timeScale: {
@@ -30,18 +30,18 @@ function initchart() {
       horzAlign: "center",
       vertAlign: "center",
       color: "rgba(222, 20, 218, 0.45)",
-      text: `${asset.toUpperCase()}`,
+      text: asset.toUpperCase(),
       fontFamily: "Roboto",
       fontStyle: "bold",
     },
   });
 
-  var candleSeries = chart.addCandlestickSeries({
+  let candleSeries = chart.addCandlestickSeries({
     upColor: "#00bdfc",
     downColor: "#fc2200",
   });
 
-  var volumeSeries = chart.addHistogramSeries({
+  let volumeSeries = chart.addHistogramSeries({
     color: "yellow",
     priceFormat: {
       type: "volume",
@@ -83,7 +83,7 @@ function fetchws(asset, interval) {
     .catch((err) => console.log(err));
 
   // stream from websocket
-  socket = new WebSocket(
+  var socket = new WebSocket(
     `wss://stream.binance.com:9443/ws/${asset.toLowerCase()}@kline_${interval}`
   );
 
@@ -108,23 +108,19 @@ function fetchws(asset, interval) {
 }
 
 // initialize the chart, fetch and websocket
-chart = initchart()[0];
-candleSeries = initchart()[1];
-volumeSeries = initchart()[2];
-socket = fetchws(asset, interval);
+console.log(asset);
+let [chart, candleSeries, volumeSeries] = initchart(asset);
+let socket = fetchws(asset, interval);
 
 for (let i = 0; i < coins.length; i++) {
   coins[i].addEventListener("change", function () {
     let asset = this.value; // this == the clicked radio,
-    chart.removeSeries(candleSeries);
-    chart.removeSeries(volumeSeries);
+    //     // chart.removeSeries(candleSeries);
+    chart.remove();
     socket.close();
 
-    chart = initchart()[0];
-    candleSeries = initchart()[1];
-    volumeSeries = initchart()[2];
+    [chart, candleSeries, volumeSeries] = initchart(asset);
     socket = fetchws(asset, interval);
-    // socket = createws(asset, interval);
 
     console.log(asset);
   });
