@@ -1,10 +1,27 @@
 // window.addEventListener("load", (event) => {
-//   // let socket = createws(asset, interval);
+//   // let socket = createws(asset, activeInterval);
 // });
 
 var asset = document.querySelector('input[name="options"]:checked').value;
-var interval = "1m";
+// var activeInterval = "1m";
+var intervals_list = ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w"];
+var TFswitcher = document.getElementById("timeframe");
+var activeInterval = intervals_list[0];
+
 let coins = document.querySelectorAll('input[name="options"]');
+
+const min_tick = {
+  BTCUSDT: 0.01,
+  ETHUSDT: 0.01,
+  SOLUSDT: 0.01,
+  BNBUSDT: 0.01,
+  DOTUSDT: 0.01,
+  MATICUSDT: 0.0001,
+  ADAUSDT: 0.0001,
+  XRPUSDT: 0.0001,
+  DOGEUSDT: 0.00001,
+  SHIBUSDT: 0.00000001,
+};
 
 const domElement = document.getElementById("tvchart");
 
@@ -39,6 +56,9 @@ function initchart(asset) {
   let candleSeries = chart.addCandlestickSeries({
     upColor: "#00bdfc",
     downColor: "#fc2200",
+    priceFormat: {
+      minMove: min_tick[asset.toUpperCase()],
+    },
   });
 
   let volumeSeries = chart.addHistogramSeries({
@@ -110,18 +130,49 @@ function fetchws(asset, interval) {
 // initialize the chart, fetch and websocket
 console.log(asset);
 let [chart, candleSeries, volumeSeries] = initchart(asset);
-let socket = fetchws(asset, interval);
+let socket = fetchws(asset, activeInterval);
 
 for (let i = 0; i < coins.length; i++) {
   coins[i].addEventListener("change", function () {
-    let asset = this.value; // this == the clicked radio,
-    //     // chart.removeSeries(candleSeries);
+    asset = this.value; // this == the clicked radio,
+    //   chart.removeSeries(candleSeries);
     chart.remove();
     socket.close();
 
     [chart, candleSeries, volumeSeries] = initchart(asset);
-    socket = fetchws(asset, interval);
+    socket = fetchws(asset, activeInterval);
 
     console.log(asset);
+  });
+}
+
+var intervalElements = intervals_list.map(function (item) {
+  var itemEl = document.createElement("button");
+  itemEl.innerText = item;
+  itemEl.classList.add("switcher-item");
+  itemEl.classList.toggle("switcher-active-item", item === activeInterval);
+  itemEl.setAttribute("name", "timeframe");
+  TFswitcher.appendChild(itemEl);
+  return itemEl;
+});
+
+// var intervalElements = document.querySelectorAll('button[name="timeframe"]');
+
+for (let i = 0; i < intervalElements.length; i++) {
+  intervalElements[i].addEventListener("click", function () {
+    activeInterval = this.innerText; // this == the current selection in the loop,
+    intervalElements.forEach(function (element, index) {
+      element.classList.toggle(
+        "switcher-active-item",
+        intervals_list[index] === activeInterval
+      );
+    });
+
+    chart.remove();
+    socket.close();
+
+    [chart, candleSeries, volumeSeries] = initchart(asset);
+    socket = fetchws(asset, activeInterval);
+    console.log(activeInterval);
   });
 }
