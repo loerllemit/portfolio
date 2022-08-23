@@ -7,34 +7,35 @@ var interval = "1m";
 let coins = document.querySelectorAll('input[name="options"]');
 
 const domElement = document.getElementById("tvchart");
-const chart = LightweightCharts.createChart(domElement, {
-  // width: 800,
-  height: 600,
-  timeScale: {
-    timeVisible: true,
-    secondsVisible: false,
-  },
-  layout: {
-    background: { type: "Solid", color: "rgba(43, 43, 67, 0.1)" },
-    textColor: "white",
-  },
-  grid: {
-    vertLines: { visible: false },
-    horzLines: { visible: false },
-  },
-  watermark: {
-    visible: true,
-    fontSize: 150,
-    horzAlign: "center",
-    vertAlign: "center",
-    color: "rgba(222, 20, 218, 0.45)",
-    text: `${asset.toUpperCase()}`,
-    fontFamily: "Roboto",
-    fontStyle: "bold",
-  },
-});
 
 function initchart() {
+  var chart = LightweightCharts.createChart(domElement, {
+    // width: 800,
+    height: 600,
+    timeScale: {
+      timeVisible: true,
+      secondsVisible: false,
+    },
+    layout: {
+      background: { type: "Solid", color: "rgba(43, 43, 67, 0.1)" },
+      textColor: "white",
+    },
+    grid: {
+      vertLines: { visible: false },
+      horzLines: { visible: false },
+    },
+    watermark: {
+      visible: true,
+      fontSize: 150,
+      horzAlign: "center",
+      vertAlign: "center",
+      color: "rgba(222, 20, 218, 0.45)",
+      text: `${asset.toUpperCase()}`,
+      fontFamily: "Roboto",
+      fontStyle: "bold",
+    },
+  });
+
   var candleSeries = chart.addCandlestickSeries({
     upColor: "#00bdfc",
     downColor: "#fc2200",
@@ -51,7 +52,7 @@ function initchart() {
       bottom: 0,
     },
   });
-  return [candleSeries, volumeSeries];
+  return [chart, candleSeries, volumeSeries];
 }
 
 function fetchws(asset, interval) {
@@ -107,8 +108,9 @@ function fetchws(asset, interval) {
 }
 
 // initialize the chart, fetch and websocket
-candleSeries = initchart()[0];
-volumeSeries = initchart()[1];
+chart = initchart()[0];
+candleSeries = initchart()[1];
+volumeSeries = initchart()[2];
 socket = fetchws(asset, interval);
 
 for (let i = 0; i < coins.length; i++) {
@@ -118,8 +120,9 @@ for (let i = 0; i < coins.length; i++) {
     chart.removeSeries(volumeSeries);
     socket.close();
 
-    candleSeries = initchart()[0];
-    volumeSeries = initchart()[1];
+    chart = initchart()[0];
+    candleSeries = initchart()[1];
+    volumeSeries = initchart()[2];
     socket = fetchws(asset, interval);
     // socket = createws(asset, interval);
 
