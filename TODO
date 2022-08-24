@@ -1,5 +1,8 @@
-update the watermark dynamically
-change the price precision for every coins
-add timeframe
+update the watermark dynamically - DONE
+change the price precision for every coins - DONE
+add timeframe interval - DONE
+add  order type  and show current pnl - DONE
 add realtime button
-add type order and show current pnl
+add calendar for pnl
+
+ 

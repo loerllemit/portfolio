@@ -12,11 +12,7 @@
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.js"
-      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-      crossorigin="anonymous"
-    ></script>
+
     <style>
       body {
         background-image: url("{% static 'bg.jpg' %}");
@@ -28,13 +24,14 @@
   </head>
   <body>
     <!-- <h1>Hello World</h1> -->
+
     <div class="row">
       <div
         class="btn-group btn-group-toggle mx-auto"
         data-toggle="buttons"
         id="mybtn"
       >
-        <label class="btn btn-secondary active">
+        <label class="btn btn-secondary">
           <input
             type="radio"
             name="options"
@@ -137,6 +134,60 @@
         </label>
       </div>
     </div>
+    <div class="row">
+      <div
+        class="btn-group btn-group-toggle mx-auto"
+        data-toggle="buttons"
+        id="test"
+      ></div>
+    </div>
+    <!-- <div class="row"> -->
+    <table class="table table-dark table-striped table-hover table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Order Type</th>
+          <th scope="col">Units</th>
+          <th scope="col">Execution Price</th>
+          <th scope="col">Current Price</th>
+          <th scope="col">Profit/Loss</th>
+          <th scope="col">%Profit/Loss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              id="ordertype"
+            >
+              <option selected value="LONG">LONG</option>
+              <option value="SHORT">SHORT</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control col-md-6"
+              id="units"
+              placeholder="Enter the number of units/shares"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control col-md-6"
+              id="execprice"
+              placeholder="Enter your execution price"
+            />
+          </td>
+          <td id="currentprice"></td>
+          <td id="pnl"></td>
+          <td id="pnl_pcnt"></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- </div> -->
     <div class="timeframe" id="timeframe" name="timeframe"></div>
     <div id="tvchart"></div>
     <script
@@ -149,7 +200,11 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
     ></script>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
-
-    <script type="text/javascript" src="{% static 'cryptoss.js' %}"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="{% static 'crypto.js' %}"></script>
   </body>
 </html>

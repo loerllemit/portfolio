@@ -2,14 +2,6 @@
 //   // let socket = createws(asset, activeInterval);
 // });
 
-var asset = document.querySelector('input[name="options"]:checked').value;
-// var activeInterval = "1m";
-var intervals_list = ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w"];
-var TFswitcher = document.getElementById("timeframe");
-var activeInterval = intervals_list[0];
-
-let coins = document.querySelectorAll('input[name="options"]');
-
 const min_tick = {
   BTCUSDT: 0.01,
   ETHUSDT: 0.01,
@@ -23,12 +15,62 @@ const min_tick = {
   SHIBUSDT: 0.00000001,
 };
 
+var coins_list = Object.keys(min_tick);
+let coins = document.querySelectorAll('input[name="options"]');
+
+var asset = document.querySelector('input[name="options"]:checked').value;
+var intervals_list = ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w"];
+var TFswitcher = document.getElementById("timeframe");
+var activeInterval = intervals_list[0];
+var activeCoin = coins_list[0];
+
 const domElement = document.getElementById("tvchart");
+
+function updatepnl(curr_price) {
+  let ordertype = document.getElementById("ordertype");
+  let units = document.getElementById("units");
+  let execprice = document.getElementById("execprice");
+  let currentprice = document.getElementById("currentprice");
+  let pnl = document.getElementById("pnl");
+  let pnl_pcnt = document.getElementById("pnl_pcnt");
+
+  currentprice.innerHTML = curr_price;
+
+  if (ordertype.value == "LONG") {
+    pnl.innerHTML = (
+      parseFloat(units.value) *
+      (parseFloat(currentprice.innerHTML) - parseFloat(execprice.value))
+    ).toFixed(3);
+    pnl_pcnt.innerHTML = (
+      ((parseFloat(currentprice.innerHTML) - parseFloat(execprice.value)) *
+        100) /
+      parseFloat(execprice.value)
+    ).toFixed(3);
+  } else {
+    pnl.innerHTML = -(
+      parseFloat(units.value) *
+      (parseFloat(currentprice.innerHTML) - parseFloat(execprice.value))
+    ).toFixed(3);
+    pnl_pcnt.innerHTML = -(
+      ((parseFloat(currentprice.innerHTML) - parseFloat(execprice.value)) *
+        100) /
+      parseFloat(execprice.value)
+    ).toFixed(3);
+  }
+
+  if (parseFloat(pnl_pcnt.innerHTML) < 0) {
+    pnl.style.color = "#ff3333";
+    pnl_pcnt.style.color = "#ff3333";
+  } else {
+    pnl.style.color = "#66ff99";
+    pnl_pcnt.style.color = "#66ff99";
+  }
+}
 
 function initchart(asset) {
   let chart = LightweightCharts.createChart(domElement, {
     // width: 800,
-    height: 600,
+    height: 550,
     timeScale: {
       timeVisible: true,
       secondsVisible: false,
@@ -122,6 +164,8 @@ function fetchws(asset, interval) {
     };
     candleSeries.update(cdata_upd);
     volumeSeries.update(cvol_upd);
+
+    updatepnl(cdata_upd["close"]);
     console.log(cdata_upd);
   };
   return socket;
@@ -135,7 +179,6 @@ let socket = fetchws(asset, activeInterval);
 for (let i = 0; i < coins.length; i++) {
   coins[i].addEventListener("change", function () {
     asset = this.value; // this == the clicked radio,
-    //   chart.removeSeries(candleSeries);
     chart.remove();
     socket.close();
 
@@ -145,6 +188,30 @@ for (let i = 0; i < coins.length; i++) {
     console.log(asset);
   });
 }
+
+var tests = document.getElementById("test");
+
+// var coinElements = coins_list.map(function (item) {
+//   var itemEl = document.createElement("label");
+//   itemEl.setAttribute("class", "btn btn-secondary");
+//   itemEl.setAttribute("for", item);
+
+//   itemInput = document.createElement("input");
+//   itemInput.type = "radio";
+//   itemInput.value = item;
+//   itemInput.autocomplete = "off";
+//   itemInput.id = item;
+
+//   // itemEl.innerText = item;
+//   itemEl.textContent = item;
+//   itemEl.appendChild(itemInput);
+
+//   itemEl.classList.add("active");
+//   itemEl.classList.toggle("active", item === activeCoin);
+//   tests.appendChild(itemEl);
+
+//   return itemEl;
+// });
 
 var intervalElements = intervals_list.map(function (item) {
   var itemEl = document.createElement("button");
