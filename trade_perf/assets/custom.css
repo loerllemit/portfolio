@@ -1,0 +1,26 @@
+table, th,tr,td {
+    border-spacing: 0 50px;
+}
+
+td.align_key {
+    text-align: right;
+    color: #abc926;
+}  
+
+td.align_val {
+    text-align: left;
+    color: #7FDBFF;
+
+}  
+
+.table_r {
+    margin-right: 0px;
+    margin-left: auto;
+    color: #7FDBFF;
+    font-size: 14px;
+
+  }
+
+/* #month_drop {
+    width: 15%;
+} */
