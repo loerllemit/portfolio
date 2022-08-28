@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from . import pnl_data
+from .management.commands import pnl_data
 
 # Create your views here.
 # def render_page(request):
