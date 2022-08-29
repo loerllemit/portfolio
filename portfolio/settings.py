@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "trade_perf.apps.TradePerfConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -39,7 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "trade_perf.apps.TradePerfConfig",
+    "django_plotly_dash.apps.DjangoPlotlyDashConfig",
+    "channels",
+    "channels_redis",
 ]
 
 MIDDLEWARE = [
@@ -50,7 +53,20 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_plotly_dash.middleware.BaseMiddleware",
 ]
+
+# Add CHANNEL_LAYERS
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                ("127.0.0.1", 6379),
+            ],
+        },
+    }
+}
 
 ROOT_URLCONF = "portfolio.urls"
 
@@ -119,12 +135,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-    # os.path.join(BASE_DIR, "asyncwait", "static"),
-)
+# STATICFILES_DIRS = (
+#     # os.path.join(BASE_DIR, "static"),
+# )
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# print("BASE_DIR", BASE_DIR)
+
+# Add STATICFILES_FINDERS
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "django_plotly_dash.finders.DashAssetFinder",
+    "django_plotly_dash.finders.DashComponentFinder",
+]
+
+# Add PLOTLY_COMPONENTS
+PLOTLY_COMPONENTS = [
+    "dash_core_components",
+    "dash_html_components",
+    "dash_renderer",
+    "dpd_components",
+]
+
+ASGI_APPLICATION = "portfolio.routing.application"
+
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

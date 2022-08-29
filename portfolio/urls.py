@@ -22,4 +22,5 @@ urlpatterns = [
     path("", include("crypto.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("", include("trade_perf.urls")),
+    path("django_plotly_dash/", include("django_plotly_dash.urls")),
 ]

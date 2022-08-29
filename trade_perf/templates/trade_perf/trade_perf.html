@@ -13,7 +13,14 @@
     <div>
       <canvas id="myChart"></canvas>
     </div>
+    <!-- <script type="text/javascript">
+      var date = "{{ date }}";
+      var daily_pnl = "{{ daily_pnl }}";
+    </script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" src="{% static 'trade_perf.js' %}"></script>
+    <script
+      type="text/javascript"
+      src="{% static 'trade_perf/trade_perf.js' %}"
+    ></script>
   </body>
 </html>

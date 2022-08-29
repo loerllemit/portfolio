@@ -21,15 +21,19 @@ async function makeRequest(url, method, body) {
 async function dailypnl() {
   const fetched_data = await makeRequest("/trade", "get");
   let test = document.getElementById("test");
-  console.log(fetched_data["date"]);
+
+  let date_val = fetched_data.map((a) => a.date);
+  let pnl_val = fetched_data.map((a) => a.pnl);
+
+  console.log(pnl_val);
 
   var chartColors = {
     red: "rgba(255, 99, 132,0.7)",
     blue: "rgba(54, 162, 235,0.7)",
   };
 
-  const labels = fetched_data["date"].slice(-50);
-  console.log(labels.length);
+  // const labels = fetched_data["date"].slice(-50);
+  const labels = date_val;
   const data = {
     labels: labels,
     datasets: [
@@ -37,7 +41,8 @@ async function dailypnl() {
         backgroundColor: Array(labels.length).fill(chartColors.blue),
         // borderColor: "rgb(255, 99, 132)",
         borderWidth: 1,
-        data: fetched_data["daily_pnl"].slice(-50),
+        // data: fetched_data["daily_pnl"].slice(-50),
+        data: pnl_val,
       },
     ],
   };
