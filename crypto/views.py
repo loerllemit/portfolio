@@ -23,5 +23,5 @@ import json
 
 
 def crypto(request):
-    return render(request, "crypto.html")
+    return render(request, "crypto/crypto.html")
     # return HttpResponse("This is my contact page (/contact) ")
