@@ -4,7 +4,6 @@ from plotly.offline import plot
 import plotly.graph_objs as go
 import numpy as np
 
-
 from django_plotly_dash import DjangoDash
 
 
