@@ -6,14 +6,16 @@ from django.contrib import messages
 from django.urls import reverse
 from plotly.offline import plot
 import plotly.graph_objs as go
-from .plots import plotly_plot
+from . import plots
 
 from .models import PriceData
 
 # Create your views here.
 def index(request):
-    target_plot = plotly_plot(PriceData)
-    context = {"target_plot": target_plot}
+    plot_dpnl = plots.plot_dpnl(PriceData)
+    plot_tpnl = plots.plot_tpnl(PriceData)
+
+    context = {"plot_dpnl": plot_dpnl, "plot_tpnl": plot_tpnl}
     return render(request, "trade_perf/index.html", context=context)
 
 

@@ -9,13 +9,13 @@
     <style>
       body {
         background-image: url("{% static 'trade_perf/dark_bg.jpg' %}");
-        background-size: cover;
+        background-size: fill;
         background-repeat: no-repeat;
         background-attachment: fixed;
       }
     </style>
   </head>
   <body>
-    {{target_plot|safe}}
+    {{plot_dpnl|safe}} {{plot_tpnl|safe}}
   </body>
 </html>

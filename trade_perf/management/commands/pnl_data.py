@@ -98,19 +98,16 @@ class Command(BaseCommand):
         most_traded = pnl_df.groupby("Details").size().reset_index(name="counts")
         most_traded = most_traded.sort_values("counts", ascending=0, ignore_index=1)
 
-        # %%
-        ## Daily pnl
-        # def dailypnl():
-        #     x = [str(daily_pnl.index.tolist()[i]) for i in range(len(daily_pnl.index.tolist()))]
-        #     y = daily_pnl["Realized Equity Change"].round(decimals=2).tolist()
-        #     return {"date": x, "daily_pnl": y}
-
         model_instances = [
             PriceData(
                 date=record["date"],
                 pnl=record["Realized Equity Change"],
+                capital=record["capital"],
+                pct_pnl=record["pct_pnl"],
             )
             for record in daily_pnl.to_dict("records")
         ]
         PriceData.objects.all().delete()
         PriceData.objects.bulk_create(model_instances)
+
+        # return start_bal
