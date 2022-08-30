@@ -6,7 +6,7 @@ from django.shortcuts import render, HttpResponse
 def home(request):
     # return HttpResponse("This is my homepage (/) ")
     context = {"name": "Harry", "course": "Django"}
-    return render(request, "home.html", context)
+    return render(request, "home/home.html", context)
 
 
 def about(request):

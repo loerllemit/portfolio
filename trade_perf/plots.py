@@ -8,10 +8,11 @@ import numpy as np
 from django_plotly_dash import DjangoDash
 
 
-def plot_dpnl(modelname):
-    data = list(modelname.objects.values())
-    date = [i["date"] for i in data]
-    pnl = [i["pnl"] for i in data]
+def plot_dpnl(dataname):
+    # data = list(modelname.objects.values())
+    # date = [i["date"] for i in data]
+    date = dataname.date
+    pnl = dataname.rec
 
     fig_dpnl = go.Figure(
         data=go.Bar(
@@ -65,11 +66,12 @@ def plot_dpnl(modelname):
     return plotly_plot_obj
 
 
-def plot_tpnl(modelname):
-    data = list(modelname.objects.values())
-    date = [i["date"] for i in data]
-    capital = [i["capital"] for i in data]
-    pct_pnl = [i["pct_pnl"] for i in data]
+def plot_tpnl(start_bal, dataname):
+    # data = list(modelname.objects.values())
+    # date = [i["date"] for i in data]
+    date = dataname.date
+    capital = dataname.capital
+    pct_pnl = dataname.pct_pnl
 
     fig_tpnl = make_subplots(specs=[[{"secondary_y": True}]])
 
@@ -82,9 +84,9 @@ def plot_tpnl(modelname):
         secondary_y=True,
     )
 
-    # fig_tpnl.add_hline(
-    #     y=start_bal, line_width=2, line_dash="dash", line_color="#7FDBFF"
-    # )
+    fig_tpnl.add_hline(
+        y=start_bal, line_width=2, line_dash="dash", line_color="#7FDBFF"
+    )
 
     fig_tpnl.update_layout(
         title_x=0.5,
