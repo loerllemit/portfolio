@@ -2,13 +2,14 @@ import dash
 from dash import dcc, html
 from plotly.offline import plot
 import plotly.graph_objs as go
+import plotly.express as px
 from plotly.subplots import make_subplots
 import numpy as np
 
 from django_plotly_dash import DjangoDash
 
 
-def plot_dpnl(dataname):
+def plot_dpnl(dataname):  # ==> daily pnl
     # data = list(modelname.objects.values())
     # date = [i["date"] for i in data]
     date = dataname.date
@@ -66,7 +67,7 @@ def plot_dpnl(dataname):
     return plotly_plot_obj
 
 
-def plot_tpnl(start_bal, dataname):
+def plot_tpnl(start_bal, dataname):  # ==> total pnl
     # data = list(modelname.objects.values())
     # date = [i["date"] for i in data]
     date = dataname.date
@@ -123,5 +124,40 @@ def plot_tpnl(start_bal, dataname):
 
     # Turn graph object into local plotly graph
     plotly_plot_obj = plot({"data": fig_tpnl}, output_type="div")
+
+    return plotly_plot_obj
+
+
+def plot_gain(top_gain):  # ==>  assets with profit
+    fig_gain = go.Figure(
+        data=go.Bar(
+            x=top_gain["details"],
+            y=top_gain["realized_equity_change"],
+            text=top_gain["details"],
+            textposition="outside",
+            marker=dict(color=top_gain["realized_equity_change"], colorscale="Blues"),
+        )
+    )
+    fig_gain.update_layout(
+        title="Top Gainers",
+        template="simple_white",
+        showlegend=False,
+        title_x=0.5,
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font_color="#7FDBFF",
+        yaxis_title="total Profit",
+        xaxis_visible=True,
+        coloraxis_showscale=True,
+        autosize=True,
+    )
+    fig_gain.update_traces(
+        marker_showscale=False,
+        hovertemplate="pnl: %{y} <br>symbol: %{text}",
+        cliponaxis=False,
+    )
+    fig_gain.update_yaxes(automargin=True)
+
+    plotly_plot_obj = plot({"data": fig_gain}, output_type="div")
 
     return plotly_plot_obj

@@ -56,3 +56,18 @@ outtab(df.values())
 
 
 str(daily_pnl.query)
+
+
+pd.DataFrame.from_records(df.exclude(ordertype="Profit/Loss of Trade").values())
+
+gg = (
+    df.exclude(ordertype="Profit/Loss of Trade")
+    .aggregate(sum=Sum("realized_equity_change"))
+    .get("sum")
+)
+
+pnl_df = pd.DataFrame.from_records(
+        df.filter(ordertype="Position closed").values()
+    ) 
+
+pnl_df.groupby("details").agg({'realized_equity_change' : 'sum'})
