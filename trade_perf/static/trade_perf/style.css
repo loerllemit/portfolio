@@ -1,3 +1,16 @@
 .divBorder {
   border: 2px solid rgb(69, 212, 157);
+  flex: 1;
+}
+
+.container {
+  /* border: solid 1px green;
+  height: 50px;
+  box-sizing: border-box; */
+  /* display: flex; */
+}
+
+.scrollme {
+  overflow: auto;
+  width: 100%;
 }

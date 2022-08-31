@@ -17,10 +17,12 @@
     </style>
   </head>
   <body>
-    hello world
-    <script
-      type="text/javascript"
-      src="{% static 'trade_perf/trade_perf.js' %}"
-    ></script>
+    <div class="divBorder">{{plot_dpnl|safe}}</div>
+    <div class="divBorder">{{plot_tpnl|safe}}</div>
+
+    <!-- <div class="container">
+    </div> -->
+    <div class="divBorder scrollme">{{plot_gain|safe}}</div>
+    <div class="divBorder scrollme">{{plot_loss|safe}}</div>
   </body>
 </html>

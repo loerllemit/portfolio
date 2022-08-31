@@ -46,7 +46,10 @@ def plot_dpnl(dataname):  # ==> daily pnl
     )
 
     fig_dpnl.update_xaxes(
-        # rangeslider_visible=True,tickmode='linear', tick0 = x[0], dtick=86400000*4,
+        # rangeslider_visible=True,
+        # tickmode="linear",
+        # tick0=date[0],
+        # dtick=86400000 * 4,
         rangeselector=dict(
             activecolor="rgb(47,79,79)",
             bgcolor="#708090",
@@ -61,7 +64,7 @@ def plot_dpnl(dataname):  # ==> daily pnl
                     dict(step="all"),
                 ]
             ),
-        )
+        ),
     )
     # Turn graph object into local plotly graph
     plotly_plot_obj = plot({"data": fig_dpnl}, output_type="div")
@@ -186,7 +189,8 @@ def plot_loss(top_loss):  # ==>  assets with losses
         yaxis_title="total Profit",
         xaxis_visible=True,
         coloraxis_showscale=True,
-        autosize=True,
+        autosize=False,
+        width=3000,
     )
     fig_loss.update_traces(
         marker_showscale=False,
@@ -194,6 +198,7 @@ def plot_loss(top_loss):  # ==>  assets with losses
         cliponaxis=False,
     )
     fig_loss.update_yaxes(automargin=True)
+    config = dict({"scrollZoom": True})
 
     plotly_plot_obj = plot({"data": fig_loss}, output_type="div")
 
