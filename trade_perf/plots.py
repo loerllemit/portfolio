@@ -34,12 +34,14 @@ def plot_dpnl(dataname):  # ==> daily pnl
         title_text="Daily Realized PNL",
         template="simple_white",
         height=600,
+        showlegend=False,
+        # margin=dict(l=0, r=0, t=0, b=0),
     )  # xaxis_tickformat = '%m/%d/%y', xaxis_tickangle = -70
 
     fig_dpnl.update_traces(
         textposition="outside",
         showlegend=False,
-        hovertemplate="date: %{x} <br>pnl: %{y}",
+        hovertemplate="date: %{x} <br>pnl: %{y:$.2f} <extra></extra>",
         cliponaxis=False,
     )
 
@@ -102,7 +104,7 @@ def plot_tpnl(start_bal, dataname):  # ==> total pnl
 
     fig_tpnl.update_yaxes(title_text="realized equity $", secondary_y=False)
     fig_tpnl.update_yaxes(title_text="% effective pnl", secondary_y=True)
-    fig_tpnl.update_traces(hovertemplate="date: %{x} <br>equity: %{y}")
+    fig_tpnl.update_traces(hovertemplate="date: %{x} <br>equity: %{y} <extra></extra>")
     fig_tpnl.update_xaxes(
         # rangeslider_visible=True,tickmode='linear', tick0 = x[0], dtick=86400000*4,
         rangeselector=dict(
@@ -153,11 +155,46 @@ def plot_gain(top_gain):  # ==>  assets with profit
     )
     fig_gain.update_traces(
         marker_showscale=False,
-        hovertemplate="pnl: %{y} <br>symbol: %{text}",
+        hovertemplate="pnl: %{y:$.2f} <br>symbol: %{text} <extra></extra>",
         cliponaxis=False,
     )
     fig_gain.update_yaxes(automargin=True)
 
     plotly_plot_obj = plot({"data": fig_gain}, output_type="div")
+
+    return plotly_plot_obj
+
+
+def plot_loss(top_loss):  # ==>  assets with losses
+    fig_loss = go.Figure(
+        data=go.Bar(
+            x=top_loss["details"],
+            y=top_loss["realized_equity_change"],
+            text=top_loss["details"],
+            textposition="outside",
+            marker=dict(color=top_loss["realized_equity_change"], colorscale="Reds_r"),
+        )
+    )
+    fig_loss.update_layout(
+        title="Top Losers",
+        template="simple_white",
+        showlegend=False,
+        title_x=0.5,
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font_color="#7FDBFF",
+        yaxis_title="total Profit",
+        xaxis_visible=True,
+        coloraxis_showscale=True,
+        autosize=True,
+    )
+    fig_loss.update_traces(
+        marker_showscale=False,
+        hovertemplate="pnl: %{y:$.2f} <br>symbol: %{text} <extra></extra>",
+        cliponaxis=False,
+    )
+    fig_loss.update_yaxes(automargin=True)
+
+    plotly_plot_obj = plot({"data": fig_loss}, output_type="div")
 
     return plotly_plot_obj

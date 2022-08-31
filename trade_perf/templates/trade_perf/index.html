@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'trade_perf/style.css' %}" />
     <title>Document</title>
     <style>
       body {
@@ -16,6 +17,9 @@
     </style>
   </head>
   <body>
-    {{plot_dpnl|safe}} {{plot_tpnl|safe}} {{plot_gain|safe}}
+    <div class="divBorder">{{plot_dpnl|safe}}</div>
+    <div class="divBorder">{{plot_tpnl|safe}}</div>
+    <div class="divBorder">{{plot_gain|safe}}</div>
+    <div class="divBorder">{{plot_loss|safe}}</div>
   </body>
 </html>

@@ -106,8 +106,14 @@ def index(request):
     plot_dpnl = plots.plot_dpnl(daily_pnl)
     plot_tpnl = plots.plot_tpnl(start_bal, daily_pnl)
     plot_gain = plots.plot_gain(top_gain)
+    plot_loss = plots.plot_loss(top_loss)
 
-    context = {"plot_dpnl": plot_dpnl, "plot_tpnl": plot_tpnl, "plot_gain": plot_gain}
+    context = {
+        "plot_dpnl": plot_dpnl,
+        "plot_tpnl": plot_tpnl,
+        "plot_gain": plot_gain,
+        "plot_loss": plot_loss,
+    }
     return render(request, "trade_perf/index.html", context=context)
 
 
