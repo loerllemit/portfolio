@@ -19,7 +19,25 @@ async function makeRequest(url, method, body) {
 
 async function dailypnl() {
   const fetched_data = await makeRequest("/api", "get");
-  console.log(fetched_data);
+  let date = fetched_data[1]["date"];
+  let pnl = fetched_data[1]["rec"];
+  console.log(date);
+
+  var data = [
+    {
+      x: date,
+      y: pnl,
+      type: "bar",
+      marker: { color: "deepskyblue" },
+    },
+  ];
+  var layout = {
+    title: "Daily Realized PNL",
+    showlegend: false,
+    paper_bgcolor: "rgba(0, 0, 0, 0)",
+    plot_bgcolor: "rgba(0, 0, 0, 0)",
+  };
+  Plotly.newPlot("dailypnl", data, layout);
 }
 
 dailypnl();
