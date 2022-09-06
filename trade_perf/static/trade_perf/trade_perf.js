@@ -109,7 +109,19 @@ async function dailypnl() {
       minor: { nticks: 10, tickmode: "auto" },
     },
   };
-  Plotly.newPlot("dailypnl", data, layout);
+  var config = {
+    scrollZoom: true,
+    displayModeBar: true,
+    toImageButtonOptions: {
+      format: "svg", // one of png, svg, jpeg, webp
+      filename: "custom_image",
+      height: 300,
+      width: 1200,
+      scale: 1, // Multiply title/legend/axis/canvas sizes by this factor
+    },
+  };
+
+  Plotly.newPlot("dailypnl", data, layout, config);
 }
 
 dailypnl();
