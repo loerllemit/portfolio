@@ -43,6 +43,8 @@ class GetData(APIView):
         daily_pnl["tot_pnl"] = daily_pnl["rec"].cumsum()
         daily_pnl["capital"] = start_bal + daily_pnl["tot_pnl"]
         daily_pnl["pct_pnl"] = (daily_pnl["capital"] - start_bal) / start_bal * 100
+        daily_pnl_pos = daily_pnl[daily_pnl["rec"] >= 0]
+        daily_pnl_neg = daily_pnl[daily_pnl["rec"] < 0]
 
         pnl_df = pd.DataFrame.from_records(
             df.filter(ordertype="Position closed").values()
@@ -114,7 +116,9 @@ class GetData(APIView):
         # most_traded = pnl_df.groupby("details").size().reset_index(name="counts")
         # most_traded = most_traded.sort_values("counts", ascending=0, ignore_index=1)
 
-        return Response([{"start_bal": start_bal}, daily_pnl, pnl_df])
+        return Response(
+            {"start_bal": start_bal, "daily_pnl_pos": daily_pnl_pos,"daily_pnl_neg": daily_pnl_neg, "pnl_df": pnl_df}
+        )
 
 
 def index(request):
