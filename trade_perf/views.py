@@ -117,7 +117,13 @@ class GetData(APIView):
         # most_traded = most_traded.sort_values("counts", ascending=0, ignore_index=1)
 
         return Response(
-            {"start_bal": start_bal, "daily_pnl_pos": daily_pnl_pos,"daily_pnl_neg": daily_pnl_neg, "pnl_df": pnl_df}
+            {
+                "start_bal": start_bal,
+                "daily_pnl": daily_pnl,
+                "daily_pnl_pos": daily_pnl_pos,
+                "daily_pnl_neg": daily_pnl_neg,
+                "pnl_df": pnl_df,
+            }
         )
 
 
