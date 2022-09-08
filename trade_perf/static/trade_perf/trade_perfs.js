@@ -205,11 +205,62 @@ async function tpnl(fetched_data) {
   Plotly.newPlot("total_pnl", data, layout, config);
 }
 
+function cal_pnl(fetched_data) {
+  google.charts.load("current", { packages: ["calendar"] });
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    let date = fetched_data["daily_pnl"]["date"];
+    date = date.map((e) => new Date(e));
+    let pnl = fetched_data["daily_pnl"]["rec"];
+    var combined = date.map((e, i) => [e, pnl[i]]);
+
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: "date", id: "Date" });
+    dataTable.addColumn({ type: "number", id: "PNL" });
+
+    dataTable.addRows(combined);
+
+    var chart = new google.visualization.Calendar(
+      document.getElementById("cal_pnl")
+    );
+    var options = {
+      title: "Daily Profit and Loss",
+      height: 550,
+      calendar: {
+        cellSize: 18,
+        cellColor: {
+          stroke: "#7676a2",
+          strokeOpacity: 0.5,
+          strokeWidth: 1,
+        },
+        dayOfWeekLabel: {
+          fontName: "Times-Roman",
+          fontSize: 12,
+          color: "#ff1ac6",
+          bold: true,
+          italic: true,
+        },
+        monthLabel: {
+          fontName: "Times-Roman",
+          fontSize: 14,
+          color: "#ff1ac6",
+          bold: true,
+          italic: true,
+        },
+      },
+    };
+
+    chart.draw(dataTable, options);
+  }
+}
+
 async function drawcharts() {
   const fetched_data = await makeRequest("/api", "get");
   console.log(fetched_data);
   dailypnl(fetched_data);
   tpnl(fetched_data);
+  cal_pnl(fetched_data);
 }
 
 drawcharts();
