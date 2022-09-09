@@ -256,20 +256,20 @@ function cal_pnl(fetched_data) {
 }
 
 function top_win(fetched_data) {
+  let assets = fetched_data["top_gain"]["details"].slice(-25);
+  let rec = fetched_data["top_gain"]["realized_equity_change"].slice(-25);
   var data = [
     {
       type: "bar",
-      y: fetched_data["top_gain"]["details"],
-      x: fetched_data["top_gain"]["realized_equity_change"],
+      y: assets,
+      x: rec,
       orientation: "h",
-      text: fetched_data["top_gain"]["details"],
+      text: assets,
       textposition: "outside",
       hovertemplate: "symbol: %{text} <br>pnl: %{x} <extra></extra>",
       cliponaxis: false,
       marker: {
-        // cmin: 0,
-        // cmax: 99.65,
-        color: fetched_data["top_gain"]["realized_equity_change"],
+        color: rec,
         // showscale: true,
         colorscale: [
           [0.0, "#e8ecf7"],
@@ -294,6 +294,7 @@ function top_win(fetched_data) {
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     font: { color: "#7FDBFF" },
     coloraxis: { showscale: false },
+    margin: { t: 40, b: 60, l: 10, r: 10 },
     xaxis: {
       showgrid: false,
       position: 0,
@@ -303,6 +304,7 @@ function top_win(fetched_data) {
       title: "total Profit $",
       showticklabels: true,
       ticks: "outside",
+      range: [0, 120],
     },
     yaxis: {
       showgrid: false,
@@ -318,20 +320,22 @@ function top_win(fetched_data) {
 }
 
 function top_loss(fetched_data) {
+  let assets = fetched_data["top_loss"]["details"].slice(-25);
+  let rec = fetched_data["top_loss"]["realized_equity_change"].slice(-25);
   var data = [
     {
       type: "bar",
-      y: fetched_data["top_loss"]["details"],
-      x: fetched_data["top_loss"]["realized_equity_change"],
+      y: assets,
+      x: rec,
       orientation: "h",
-      text: fetched_data["top_loss"]["details"],
+      text: assets,
       textposition: "outside",
       hovertemplate: "symbol: %{text} <br>pnl: %{x} <extra></extra>",
       cliponaxis: false,
       marker: {
         // cmin: 0,
         // cmax: 99.65,
-        color: fetched_data["top_loss"]["realized_equity_change"],
+        color: rec,
         // showscale: true,
         colorscale: [
           [0.0, "#c80512"],
@@ -356,6 +360,7 @@ function top_loss(fetched_data) {
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     font: { color: "#7FDBFF" },
     coloraxis: { showscale: false },
+    margin: { t: 40, b: 60, l: 10, r: 10 },
     xaxis: {
       showgrid: false,
       position: 0,
@@ -365,6 +370,7 @@ function top_loss(fetched_data) {
       title: "total Loss $",
       showticklabels: true,
       ticks: "outside",
+      range: [-120, 0],
     },
     yaxis: {
       showgrid: false,
