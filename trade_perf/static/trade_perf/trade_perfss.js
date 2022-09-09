@@ -270,7 +270,7 @@ function top_win(fetched_data) {
         // cmin: 0,
         // cmax: 99.65,
         color: fetched_data["top_gain"]["realized_equity_change"],
-        showscale: true,
+        // showscale: true,
         colorscale: [
           [0.0, "#e8ecf7"],
           [0.111, "#d0d9f0"],
@@ -309,11 +309,74 @@ function top_win(fetched_data) {
       zeroline: false,
       linecolor: "gray",
       mirror: true,
-      ticks: "outside",
+      ticks: "",
+      showticklabels: false,
       // minor: { nticks: 10, tickmode: "auto" },
     },
   };
   Plotly.newPlot("top_win", data, layout);
+}
+
+function top_loss(fetched_data) {
+  var data = [
+    {
+      type: "bar",
+      y: fetched_data["top_loss"]["details"],
+      x: fetched_data["top_loss"]["realized_equity_change"],
+      orientation: "h",
+      text: fetched_data["top_loss"]["details"],
+      textposition: "outside",
+      hovertemplate: "symbol: %{text} <br>pnl: %{x} <extra></extra>",
+      cliponaxis: false,
+      marker: {
+        // cmin: 0,
+        // cmax: 99.65,
+        color: fetched_data["top_loss"]["realized_equity_change"],
+        // showscale: true,
+        colorscale: [
+          [0.0, "#c80512"],
+          [0.111, "#ce1e2a"],
+          [0.222, "#d33741"],
+          [0.333, "#d95059"],
+          [0.444, "#de6971"],
+          [0.556, "#e48289"],
+          [0.667, "#e99ba0"],
+          [0.778, "#efb4b8"],
+          [0.889, "#f4cdd0"],
+          [1.0, "#fae6e7"],
+        ],
+      },
+    },
+  ];
+  var layout = {
+    title: "Top Losers",
+    showlegend: false,
+    height: 550,
+    paper_bgcolor: "rgba(0, 0, 0, 0)",
+    plot_bgcolor: "rgba(0, 0, 0, 0)",
+    font: { color: "#7FDBFF" },
+    coloraxis: { showscale: false },
+    xaxis: {
+      showgrid: false,
+      position: 0,
+      anchor: "free",
+      mirror: "all",
+      linecolor: "gray",
+      title: "total Loss $",
+      showticklabels: true,
+      ticks: "outside",
+    },
+    yaxis: {
+      showgrid: false,
+      zeroline: false,
+      linecolor: "gray",
+      mirror: true,
+      ticks: "",
+      showticklabels: false,
+      // minor: { nticks: 10, tickmode: "auto" },
+    },
+  };
+  Plotly.newPlot("top_loss", data, layout);
 }
 
 async function drawcharts() {
@@ -323,6 +386,7 @@ async function drawcharts() {
   tpnl(fetched_data);
   cal_pnl(fetched_data);
   top_win(fetched_data);
+  top_loss(fetched_data);
 }
 
 drawcharts();
