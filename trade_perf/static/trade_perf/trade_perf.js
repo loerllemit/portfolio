@@ -396,8 +396,8 @@ function most_traded(fetched_data) {
       type: "pie",
       hole: 0.3,
       textposition: "inside",
-      automargin: true,
-      scalegroup: "one",
+      // automargin: true,
+      // scalegroup: "two",
       hovertemplate:
         "symbol: %{label} <br>counts: %{value} <br> %{percent} <extra></extra>",
     },
@@ -407,7 +407,7 @@ function most_traded(fetched_data) {
     paper_bgcolor: "rgba(0, 0, 0, 0)",
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     font: { color: "#7FDBFF" },
-    margin: { t: 40, b: 0, l: 0, r: 0 },
+    margin: { t: 60, b: 0, l: 0, r: 0 },
   };
   Plotly.newPlot("most_traded", data, layout);
 }
@@ -454,7 +454,7 @@ function stats(fetched_data) {
             ],
           ],
         },
-        font: { family: "Arial", size: 11, color: ["black"] },
+        font: { family: "Arial", size: 12, color: ["darkslategray"] },
       },
     },
   ];
@@ -463,7 +463,9 @@ function stats(fetched_data) {
     paper_bgcolor: "rgba(0, 0, 0, 0)",
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     font: { color: "#7FDBFF" },
-    margin: { t: 40, b: 0, l: 0, r: 0 },
+    // height: 600,
+
+    // margin: { t: 60, b: 0, l: 0, r: 0 },
   };
 
   Plotly.newPlot("tab_stats", data, layout);
