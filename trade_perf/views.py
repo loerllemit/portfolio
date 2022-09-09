@@ -112,9 +112,9 @@ class GetData(APIView):
         )
 
         # %%
-        ## Most traded asset
-        # most_traded = pnl_df.groupby("details").size().reset_index(name="counts")
-        # most_traded = most_traded.sort_values("counts", ascending=0, ignore_index=1)
+        # Most traded asset
+        most_traded = pnl_df.groupby("details").size().reset_index(name="counts")
+        most_traded = most_traded.sort_values("counts", ascending=0, ignore_index=1)
 
         return Response(
             {
@@ -123,8 +123,9 @@ class GetData(APIView):
                 "daily_pnl_pos": daily_pnl_pos,
                 "daily_pnl_neg": daily_pnl_neg,
                 "pnl_df": pnl_df,
-                "top_gain" : top_gain,
-                "top_loss" : top_loss
+                "top_gain": top_gain,
+                "top_loss": top_loss,
+                "most_traded": most_traded,
             }
         )
 

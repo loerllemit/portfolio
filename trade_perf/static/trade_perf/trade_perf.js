@@ -385,6 +385,33 @@ function top_loss(fetched_data) {
   Plotly.newPlot("top_loss", data, layout);
 }
 
+function most_traded(fetched_data) {
+  let assets = fetched_data["most_traded"]["details"];
+  let counts = fetched_data["most_traded"]["counts"];
+
+  var data = [
+    {
+      values: counts,
+      labels: assets,
+      type: "pie",
+      hole: 0.3,
+      textposition: "inside",
+      automargin: true,
+      scalegroup: "one",
+      hovertemplate:
+        "symbol: %{label} <br>counts: %{value} <br> %{percent} <extra></extra>",
+    },
+  ];
+  var layout = {
+    title: "Most Traded Asset",
+    paper_bgcolor: "rgba(0, 0, 0, 0)",
+    plot_bgcolor: "rgba(0, 0, 0, 0)",
+    font: { color: "#7FDBFF" },
+    margin: { t: 40, b: 0, l: 0, r: 0 },
+  };
+  Plotly.newPlot("most_traded", data, layout);
+}
+
 async function drawcharts() {
   const fetched_data = await makeRequest("/api", "get");
   console.log(fetched_data);
@@ -393,6 +420,7 @@ async function drawcharts() {
   cal_pnl(fetched_data);
   top_win(fetched_data);
   top_loss(fetched_data);
+  most_traded(fetched_data);
 }
 
 drawcharts();
