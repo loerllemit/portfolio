@@ -412,6 +412,63 @@ function most_traded(fetched_data) {
   Plotly.newPlot("most_traded", data, layout);
 }
 
+function stats(fetched_data) {
+  let name_list = fetched_data["name_list"];
+  let val_list = fetched_data["val_list"];
+
+  var headerColor = "grey";
+  var rowEvenColor = "lightgrey";
+  var rowOddColor = "white";
+  var data = [
+    {
+      type: "table",
+      header: {
+        values: [["<b>Parameters</b>"], ["<b>Values</b>"]],
+        align: "center",
+        line: { width: 1, color: "black" },
+        fill: { color: headerColor },
+        font: { family: "Arial", size: 12, color: "white" },
+      },
+      cells: {
+        values: [name_list, val_list],
+        align: "center",
+        line: { color: "black", width: 1 },
+        fill: {
+          color: [
+            [
+              rowOddColor,
+              rowEvenColor,
+              rowOddColor,
+              rowEvenColor,
+              rowOddColor,
+              rowEvenColor,
+              rowOddColor,
+              rowEvenColor,
+              rowOddColor,
+              rowEvenColor,
+              rowOddColor,
+              rowEvenColor,
+              rowOddColor,
+              rowEvenColor,
+              rowOddColor,
+            ],
+          ],
+        },
+        font: { family: "Arial", size: 11, color: ["black"] },
+      },
+    },
+  ];
+  var layout = {
+    title: "Statistics",
+    paper_bgcolor: "rgba(0, 0, 0, 0)",
+    plot_bgcolor: "rgba(0, 0, 0, 0)",
+    font: { color: "#7FDBFF" },
+    margin: { t: 40, b: 0, l: 0, r: 0 },
+  };
+
+  Plotly.newPlot("tab_stats", data, layout);
+}
+
 async function drawcharts() {
   const fetched_data = await makeRequest("/api", "get");
   console.log(fetched_data);
@@ -421,6 +478,7 @@ async function drawcharts() {
   top_win(fetched_data);
   top_loss(fetched_data);
   most_traded(fetched_data);
+  stats(fetched_data);
 }
 
 drawcharts();

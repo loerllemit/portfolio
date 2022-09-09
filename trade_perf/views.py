@@ -116,6 +116,39 @@ class GetData(APIView):
         most_traded = pnl_df.groupby("details").size().reset_index(name="counts")
         most_traded = most_traded.sort_values("counts", ascending=0, ignore_index=1)
 
+        ## Statistics
+        name_list = [
+            "win streak",
+            "loss streak",
+            "total trades",
+            "win trades",
+            "loss trades",
+            "%win rate",
+            "total gain",
+            "total loss",
+            "avg. gain",
+            "avg. loss",
+            "max profit trade",
+            "max loss trade",
+            "profit factor",
+            "expectancy ratio",
+        ]
+        val_list = [
+            win_streak,
+            loss_streak,
+            tot_trades,
+            win_trades,
+            loss_trades,
+            win_rate,
+            total_gain,
+            total_loss,
+            avg_gain,
+            avg_loss,
+            max_gain_trade,
+            max_loss_trade,
+            profit_factor,
+            expectancy_ratio,
+        ]
         return Response(
             {
                 "start_bal": start_bal,
@@ -126,6 +159,8 @@ class GetData(APIView):
                 "top_gain": top_gain,
                 "top_loss": top_loss,
                 "most_traded": most_traded,
+                "name_list": name_list,
+                "val_list": val_list,
             }
         )
 
