@@ -123,6 +123,8 @@ class GetData(APIView):
                 "daily_pnl_pos": daily_pnl_pos,
                 "daily_pnl_neg": daily_pnl_neg,
                 "pnl_df": pnl_df,
+                "top_gain" : top_gain,
+                "top_loss" : top_loss
             }
         )
 

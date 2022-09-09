@@ -75,7 +75,7 @@ var buttonOptions = {
   ],
 };
 
-async function dailypnl(fetched_data) {
+function dailypnl(fetched_data) {
   let date_pos = fetched_data["daily_pnl_pos"]["date"];
   let date_neg = fetched_data["daily_pnl_neg"]["date"];
   let pnl_pos = fetched_data["daily_pnl_pos"]["rec"];
@@ -129,7 +129,7 @@ async function dailypnl(fetched_data) {
   Plotly.newPlot("dailypnl", data, layout, config);
 }
 
-async function tpnl(fetched_data) {
+function tpnl(fetched_data) {
   let start_bal = fetched_data["start_bal"];
   let date = fetched_data["daily_pnl"]["date"];
   let pnl = fetched_data["daily_pnl"]["capital"];
@@ -255,12 +255,74 @@ function cal_pnl(fetched_data) {
   }
 }
 
+function top_win(fetched_data) {
+  var data = [
+    {
+      type: "bar",
+      y: fetched_data["top_gain"]["details"],
+      x: fetched_data["top_gain"]["realized_equity_change"],
+      orientation: "h",
+      text: fetched_data["top_gain"]["details"],
+      textposition: "outside",
+      hovertemplate: "symbol: %{text} <br>pnl: %{x} <extra></extra>",
+      cliponaxis: false,
+      marker: {
+        // cmin: 0,
+        // cmax: 99.65,
+        color: fetched_data["top_gain"]["realized_equity_change"],
+        showscale: true,
+        colorscale: [
+          [0.0, "#e8ecf7"],
+          [0.111, "#d0d9f0"],
+          [0.222, "#b9c6e8"],
+          [0.333, "#a1b3e1"],
+          [0.444, "#8aa0d9"],
+          [0.556, "#728dd1"],
+          [0.667, "#5b7aca"],
+          [0.778, "#4367c2"],
+          [0.889, "#2c54bb"],
+          [1.0, "#1441b3"],
+        ],
+      },
+    },
+  ];
+  var layout = {
+    title: "Top Gainers",
+    showlegend: false,
+    height: 550,
+    paper_bgcolor: "rgba(0, 0, 0, 0)",
+    plot_bgcolor: "rgba(0, 0, 0, 0)",
+    font: { color: "#7FDBFF" },
+    coloraxis: { showscale: false },
+    xaxis: {
+      showgrid: false,
+      position: 0,
+      anchor: "free",
+      mirror: "all",
+      linecolor: "gray",
+      title: "total Profit $",
+      showticklabels: true,
+      ticks: "outside",
+    },
+    yaxis: {
+      showgrid: false,
+      zeroline: false,
+      linecolor: "gray",
+      mirror: true,
+      ticks: "outside",
+      // minor: { nticks: 10, tickmode: "auto" },
+    },
+  };
+  Plotly.newPlot("top_win", data, layout);
+}
+
 async function drawcharts() {
   const fetched_data = await makeRequest("/api", "get");
   console.log(fetched_data);
   dailypnl(fetched_data);
   tpnl(fetched_data);
   cal_pnl(fetched_data);
+  top_win(fetched_data);
 }
 
 drawcharts();
