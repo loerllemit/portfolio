@@ -42,6 +42,8 @@ df["Date"] = pd.to_datetime(
     df["Date"], format="%d/%m/%Y %H:%M:%S", utc=True
 ).dt.tz_convert("Asia/Manila")
 df["date"] = df["Date"].dt.date
+
+# PLEASE CORRECT THIS. THIS WILL ONLY SORT DATE BUT NOT THE TIME HAVING THE SAME DATE
 df.sort_values(by=["date"], inplace=True, ignore_index=True)
 
 daily_pnl = df.groupby(["date"]).sum()
