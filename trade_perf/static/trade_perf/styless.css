@@ -6,9 +6,5 @@
 tbody,
 thead {
   text-align: center;
-  padding: 10px;
-}
-
-table {
-  width: 50%;
+  padding: 0px;
 }
