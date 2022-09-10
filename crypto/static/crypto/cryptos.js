@@ -243,3 +243,41 @@ for (let i = 0; i < intervalElements.length; i++) {
     console.log(activeInterval);
   });
 }
+
+// create real time button
+var chartWidth = domElement.getBoundingClientRect().width;
+var chartHeight = domElement.getBoundingClientRect().height;
+chart.timeScale().scrollToPosition(5, true);
+
+var width = 27;
+var height = 100;
+
+var button = document.createElement("div");
+button.className = "go-to-realtime-button";
+button.style.left = chartWidth - width - 75 + "px";
+button.style.top = chartHeight - height - 25 + "px";
+button.style.color = "#4c525e";
+button.innerHTML =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M6.5 1.5l5 5.5-5 5.5M3 4l2.5 3L3 10"></path></svg>';
+document.body.appendChild(button);
+
+var timeScale = chart.timeScale();
+timeScale.subscribeVisibleTimeRangeChange(function () {
+  var buttonVisible = timeScale.scrollPosition() < 0;
+  button.style.display = buttonVisible ? "block" : "none";
+});
+
+button.addEventListener("click", function () {
+  // timeScale.scrollToRealTime();
+  timeScale.scrollToPosition(5, true);
+});
+
+button.addEventListener("mouseover", function () {
+  button.style.background = "rgba(250, 250, 250, 1)";
+  button.style.color = "#000";
+});
+
+button.addEventListener("mouseout", function () {
+  button.style.background = "rgba(250, 250, 250, 0.6)";
+  button.style.color = "#4c525e";
+});
