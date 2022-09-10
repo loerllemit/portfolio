@@ -5,7 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'trade_perf/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'trade_perf/style.css' %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
     <script
       type="text/javascript"
       src="https://www.gstatic.com/charts/loader.js"
@@ -35,9 +41,39 @@
       <div id="tab_stats" style="width: 48%" class="tops_child"></div>
     </div>
 
+    <div class="container table-responsive" style="width: 48%">
+      <table
+        id="myTable"
+        class="table table-primary table-hover table-striped table-sm"
+      >
+        <caption
+          style="
+            text-align: center;
+            caption-side: top;
+            color: #7fdbff;
+            font-size: 20px;
+          "
+        >
+          Statistics
+        </caption>
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Parameters</th>
+            <th scope="col">Values</th>
+          </tr>
+        </thead>
+        <tbody id="testBody" class="table-group-divider"></tbody>
+      </table>
+    </div>
+
     <script
       type="text/javascript"
-      src="{% static 'trade_perf/trade_perf.js' %}"
+      src="{% static 'trade_perf/trade_perfs.js' %}"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
     ></script>
   </body>
 </html>

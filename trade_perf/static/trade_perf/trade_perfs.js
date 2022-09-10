@@ -471,6 +471,20 @@ function stats(fetched_data) {
   Plotly.newPlot("tab_stats", data, layout);
 }
 
+function loadtable(fetched_data) {
+  let name_list = fetched_data["name_list"];
+  let val_list = fetched_data["val_list"];
+
+  const table = document.getElementById("testBody");
+  for (var i = 0; i < name_list.length; i++) {
+    let row = table.insertRow();
+    let name = row.insertCell(0);
+    name.innerHTML = name_list[i];
+    let val = row.insertCell(1);
+    val.innerHTML = val_list[i];
+  }
+}
+
 async function drawcharts() {
   const fetched_data = await makeRequest("/api", "get");
   console.log(fetched_data);
@@ -481,6 +495,7 @@ async function drawcharts() {
   top_loss(fetched_data);
   most_traded(fetched_data);
   stats(fetched_data);
+  loadtable(fetched_data);
 }
 
 drawcharts();

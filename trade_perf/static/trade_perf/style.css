@@ -34,3 +34,14 @@
   /* padding: 1rem 1rem; */
   vertical-align: middle;
 }
+
+thead,
+tbody {
+  /* display: block; */
+  text-align: center;
+  width: 20%;
+}
+
+tbody {
+  width: 20%;
+}
