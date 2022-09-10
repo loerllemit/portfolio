@@ -294,7 +294,7 @@ function top_win(fetched_data) {
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     font: { color: "#7FDBFF" },
     coloraxis: { showscale: false },
-    margin: { t: 40, b: 60, l: 10, r: 10 },
+    margin: { t: 40, b: 60, l: 0, r: 0 },
     xaxis: {
       showgrid: false,
       position: 0,
@@ -360,7 +360,8 @@ function top_loss(fetched_data) {
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     font: { color: "#7FDBFF" },
     coloraxis: { showscale: false },
-    margin: { t: 40, b: 60, l: 10, r: 10 },
+    // margin: { t: 40, b: 60, l: 10, r: 0 },
+    margin: { t: 40, b: 60, l: 0, r: 0 },
     xaxis: {
       showgrid: false,
       position: 0,

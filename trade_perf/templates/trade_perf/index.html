@@ -31,20 +31,32 @@
   <body>
     <div id="dailypnl" class="divBorder"></div>
     <div id="total_pnl" class="divBorder"></div>
-    <div id="cal_pnl" class="divBorder center"></div>
-    <div class="tops divBorder">
-      <div id="top_loss" style="width: 48%" class="tops_child"></div>
-      <div id="top_win" style="width: 48%" class="tops_child"></div>
-    </div>
-    <div>
-      <div id="most_traded" style="width: 48%" class="tops_child"></div>
-      <div id="tab_stats" style="width: 48%" class="tops_child"></div>
+
+    <div class="container text-center">
+      <div class="row align-items-center justify-content-center">
+        <div id="cal_pnl" class="col"></div>
+      </div>
     </div>
 
-    <div class="container table-responsive" style="width: 48%">
+    <div class="container text-center">
+      <div class="row align-items-center justify-content-center">
+        <div id="top_loss" class="col-6"></div>
+        <div id="top_win" class="col-6"></div>
+      </div>
+    </div>
+
+    <div class="container-fluid text-center">
+      <div class="row align-items-center justify-content-center">
+        <div id="most_traded" class="col-6"></div>
+        <div id="tab_stats" class="col-6"></div>
+      </div>
+    </div>
+
+    <div class="container-fluid table-responsive" style="width: 48%">
       <table
         id="myTable"
         class="table table-primary table-hover table-striped table-sm"
+        cellspacing="0"
       >
         <caption
           style="
