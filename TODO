@@ -3,7 +3,8 @@ change the price precision for every coins - DONE
 add timeframe interval - DONE
 add  order type  and show current pnl - DONE
 add calendar for pnl - DONE
-
-add realtime button
+add realtime button - DONE
 discrepancy in win streak and loss streak, the code did not sort time within the same date - RESOLVED
+
+
 extend nav bar across different page
