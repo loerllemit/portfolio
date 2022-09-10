@@ -294,7 +294,7 @@ function top_win(fetched_data) {
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     font: { color: "#7FDBFF" },
     coloraxis: { showscale: false },
-    margin: { t: 40, b: 60, l: 0, r: 0 },
+    margin: { t: 40, b: 80, l: 0, r: 0 },
     xaxis: {
       showgrid: false,
       position: 0,
@@ -361,7 +361,7 @@ function top_loss(fetched_data) {
     font: { color: "#7FDBFF" },
     coloraxis: { showscale: false },
     // margin: { t: 40, b: 60, l: 10, r: 0 },
-    margin: { t: 40, b: 60, l: 0, r: 0 },
+    margin: { t: 40, b: 80, l: 0, r: 0 },
     xaxis: {
       showgrid: false,
       position: 0,
@@ -476,7 +476,7 @@ function loadtable(fetched_data) {
   let name_list = fetched_data["name_list"];
   let val_list = fetched_data["val_list"];
 
-  const table = document.getElementById("testBody");
+  const table = document.getElementById("table_stats");
   for (var i = 0; i < name_list.length; i++) {
     let row = table.insertRow();
     let name = row.insertCell(0);
@@ -495,7 +495,7 @@ async function drawcharts() {
   top_win(fetched_data);
   top_loss(fetched_data);
   most_traded(fetched_data);
-  stats(fetched_data);
+  // stats(fetched_data);
   loadtable(fetched_data);
 }
 

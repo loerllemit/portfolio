@@ -1,0 +1,14 @@
+.divBorder {
+  /* border: 2px solid rgb(69, 212, 157); */
+  flex: 1;
+}
+
+tbody,
+thead {
+  text-align: center;
+  padding: 10px;
+}
+
+table {
+  width: 50%;
+}
