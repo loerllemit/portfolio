@@ -9,9 +9,9 @@ def home(request):
     return render(request, "home/home.html", context)
 
 
-def about(request):
+def resume(request):
     # return HttpResponse("This is my about page(/about) ")
-    return render(request, "about.html")
+    return render(request, "resume.html")
 
 
 def projects(request):
