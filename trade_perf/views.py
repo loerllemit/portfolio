@@ -7,11 +7,13 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.db import connections
 from django.contrib import messages
 from django.urls import reverse
-from plotly.offline import plot
-import plotly.graph_objs as go
+
+# from plotly.offline import plot
+# import plotly.graph_objs as go
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from . import plots
+
+# from . import plots
 from .models import AcctStatement
 
 
