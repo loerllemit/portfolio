@@ -22,3 +22,4 @@ COPY . .
 # CMD echo python manage.py collectstatic --noinput; echo python manage.py makemigrations;  echo python manage.py migrate; echo python manage.py runserver 0.0.0.0:80
 
 CMD ["./start.sh"]
+# CMD python manage.py runserver 0.0.0.0:80

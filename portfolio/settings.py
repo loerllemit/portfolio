@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-33i39ed5fl1h#2s6+6csob8woydcgtd1jito)^z7c!85(3v32c"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["app-5owamhfmyq-de.a.run.app", "localhost"]
+ALLOWED_HOSTS = ["localhost", "app-5owamhfmyq-de.a.run.app"]
 
 
 # Application definition
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "channels_redis",
 ]
 
 MIDDLEWARE = [
@@ -122,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# https://app-5owamhfmyq-de.a.run.app/
+#
 STATIC_URL = "static/"
 # STATICFILES_DIRS = (
 #     # os.path.join(BASE_DIR, "static"),
