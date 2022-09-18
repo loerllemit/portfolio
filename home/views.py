@@ -19,3 +19,8 @@ def screener(request):
     return redirect(
         "https://jupyter-5owamhfmyq-de.a.run.app/lab/tree/screener_long_SP500.ipynb"
     )
+
+
+def srcode(request):
+    ## return HttpResponse("This is my contact page (/contact) ")
+    return redirect("https://github.com/loerllemit/portfolio")

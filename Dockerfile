@@ -19,7 +19,6 @@ COPY . .
 # to be equal to the cores available.
 # Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
 # CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 mysite.wsgi:application
-# CMD echo python manage.py collectstatic --noinput; echo python manage.py makemigrations;  echo python manage.py migrate; echo python manage.py runserver 0.0.0.0:80
 
 RUN python manage.py collectstatic --noinput; \
 python manage.py makemigrations; \
