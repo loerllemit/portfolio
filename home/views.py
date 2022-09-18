@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 
 # Create your views here.
-
-
 def home(request):
     context = {"name": "Christian", "course": "Django"}
     return render(request, "home/home.html", context)
@@ -19,5 +17,5 @@ def projects(request):
 def screener(request):
     ## return HttpResponse("This is my contact page (/contact) ")
     return redirect(
-        "https://jupyter-5owamhfmyq-de.a.run.app/notebooks/screener_long_SP500.ipynb"
+        "https://jupyter-5owamhfmyq-de.a.run.app/lab/tree/screener_long_SP500.ipynb"
     )
