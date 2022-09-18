@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 
 # Create your views here.
 
@@ -16,6 +16,8 @@ def projects(request):
     return render(request, "projects.html")
 
 
-# def screener(request):
-## return HttpResponse("This is my contact page (/contact) ")
-## return render(request, "contact.html")
+def screener(request):
+    ## return HttpResponse("This is my contact page (/contact) ")
+    return redirect(
+        "https://jupyter-5owamhfmyq-de.a.run.app/notebooks/screener_long_SP500.ipynb"
+    )
