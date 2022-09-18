@@ -21,5 +21,10 @@ COPY . .
 # CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 mysite.wsgi:application
 # CMD echo python manage.py collectstatic --noinput; echo python manage.py makemigrations;  echo python manage.py migrate; echo python manage.py runserver 0.0.0.0:80
 
-CMD ["./start.sh"]
-# CMD python manage.py runserver 0.0.0.0:80
+RUN python manage.py collectstatic --noinput; \
+python manage.py makemigrations; \
+python manage.py migrate; \
+python manage.py getdata
+
+# CMD ["./start.sh"]
+CMD python manage.py runserver 0.0.0.0:8080
