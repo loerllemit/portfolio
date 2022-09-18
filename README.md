@@ -11,12 +11,16 @@ This project fetches the historical data of major cryptocurrencies from the Bina
 Backend: Django \
 Frontend: Javascript, TradingView Lightweight Charts
 
+Link: https://portfolio-5owamhfmyq-de.a.run.app/crypto
+
 > **Project 2 Trade Performance:**
 
-This project shows my own trading performance in the US stock market using Etoro as the brokerage account. The data is downloaded from my etoro account history as excel file. The excel file is then loaded in python pandas then converted to sqlite file. Data can be queried using Django Object Relational Mapping. The plots were done using Plotly JS
+This project shows my own trading performance in the US stock market using Etoro as the brokerage account. The data is downloaded from my etoro account history as excel file. The excel file is then loaded in python pandas then converted to sqlite file. Data can be queried using Django Object Relational Mapping. The plots were done using Plotly JS and Google Charts.
 
 Backend: Django ORM, Django API, Python pandas \
 Frontend: Javascript, Plotly JS, Google Charts, Bootstrap
+
+Link: https://portfolio-5owamhfmyq-de.a.run.app/trade
 
 > **Project 3 Stock Screener:**
 
@@ -25,3 +29,5 @@ The code will screen all the stocks in the SP 500 index according to the criteri
 
 Backend: Jupyter \
 Source Code: https://github.com/loerllemit/US_trading
+
+Link: https://jupyter-5owamhfmyq-de.a.run.app/lab/tree/screener_long_SP500.ipynb
