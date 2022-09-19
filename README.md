@@ -27,7 +27,7 @@ Link: https://portfolio-5owamhfmyq-de.a.run.app/trade
 > **Project 3 Stock Screener:**
 
 This project is written in jupyter notebook file.
-The code will screen all the stocks in the SP 500 index according to the criteria introduced by Mark Minervini in his book 'Think & Trade Like a Champion'. See this [link](https://in.tradingview.com/script/88aL78Qh-TwP-Mark-Minervini-Trend-Template-Criteria/) for details. This will output a list of stocks which you can use as watchlist to trade.
+The code will screen all the stocks in the SP 500 index according to its relative strength with respect to the index. The stocks are further screened based on criteria introduced by Mark Minervini in his book 'Think & Trade Like a Champion'. See this [link](https://in.tradingview.com/script/88aL78Qh-TwP-Mark-Minervini-Trend-Template-Criteria/) for details. This will output a list of stocks which you can use as watchlist to trade.
 
 Backend: Jupyter \
 Source Code: https://github.com/loerllemit/US_trading
