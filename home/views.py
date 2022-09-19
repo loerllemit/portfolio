@@ -22,5 +22,4 @@ def screener(request):
 
 
 def srcode(request):
-    ## return HttpResponse("This is my contact page (/contact) ")
     return redirect("https://github.com/loerllemit/portfolio")
