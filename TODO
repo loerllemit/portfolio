@@ -8,3 +8,4 @@ discrepancy in win streak and loss streak, the code did not sort time within the
 extend nav bar across different page - DONE
 
 explain relative strength
+refactor to use react
