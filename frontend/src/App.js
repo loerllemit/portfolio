@@ -4,6 +4,7 @@ import Loading from "./components/Loading";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import "./App.css";
 import TotalPNL from "./components/TotalPNL";
+import CalendarPNL from "./components/CalendarPNL";
 
 const BASE_URL = "http://localhost:8000/api";
 
@@ -41,6 +42,12 @@ function App() {
                   height={height}
                />
                <TotalPNL
+                  className=" min-h-screen"
+                  data={data}
+                  width={width}
+                  height={height}
+               />
+               <CalendarPNL
                   className=" min-h-screen"
                   data={data}
                   width={width}
