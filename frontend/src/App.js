@@ -3,12 +3,13 @@ import DailyPNL from "./components/DailyPNL";
 import Loading from "./components/Loading";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import "./App.css";
+import TotalPNL from "./components/TotalPNL";
 
 const BASE_URL = "http://localhost:8000/api";
 
 function App() {
    const [data, setData] = useState([]);
-   const [loading, setLoading] = useState(true);
+   const [isloading, setLoading] = useState(true);
    const { height, width } = useWindowDimensions();
 
    async function fetchData() {
@@ -28,9 +29,25 @@ function App() {
    }, []);
 
    return (
-      <div className="App bg-slate-600 min-h-screen">
-         {loading && <Loading />}
-         {!loading && <DailyPNL data={data} width={width} height={height} />}
+      <div className="App bg-slate-600">
+         {isloading ? (
+            <Loading />
+         ) : (
+            <>
+               <DailyPNL
+                  className=" min-h-screen"
+                  data={data}
+                  width={width}
+                  height={height}
+               />
+               <TotalPNL
+                  className=" min-h-screen"
+                  data={data}
+                  width={width}
+                  height={height}
+               />
+            </>
+         )}
       </div>
    );
 }

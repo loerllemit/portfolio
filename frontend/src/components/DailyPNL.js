@@ -26,7 +26,6 @@ function DailyPNL({ data, width, height }) {
    let layout = {
       title: "Daily Realized PNL",
       showlegend: false,
-      //   autosize: true,
       height: height,
       width: width,
       paper_bgcolor: "rgba(0, 0, 0, 0)",
