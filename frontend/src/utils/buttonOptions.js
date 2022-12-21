@@ -1,6 +1,7 @@
 let buttonOptions = {
    activecolor: "rgb(47,79,79)",
-   bgcolor: "#708090",
+   bgcolor: "red",
+   font: { color: "yellow", size: 15 },
    buttons: [
       {
          step: "month",

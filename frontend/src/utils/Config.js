@@ -2,6 +2,7 @@ let config = {
    scrollZoom: true,
    editable: true,
    // displayModeBar: false,
+   responsive: true,
    displaylogo: false,
    toImageButtonOptions: {
       format: "png", // one of png, svg, jpeg, webp
