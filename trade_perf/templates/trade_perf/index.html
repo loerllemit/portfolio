@@ -1,96 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% load static %} {% csrf_token %}
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'trade_perf/styless.css' %}" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-      crossorigin="anonymous"
-    />
-    <script
-      type="text/javascript"
-      src="https://www.gstatic.com/charts/loader.js"
-    ></script>
-    <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
+   <head>
+      {% load static %} {% csrf_token %}
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="{% static 'trade_perf/styless.css' %}" />
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+         crossorigin="anonymous" />
+      <script
+         type="text/javascript"
+         src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
 
-    <title>Trade Performance</title>
-    <style>
-      body {
-        background-image: url("{% static 'trade_perf/dark_bg.jpg' %}");
-        background-size: fill;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="dailypnl" class="divBorder"></div>
-    <div id="total_pnl" class="divBorder"></div>
+      <title>Trade Performance</title>
+      <style>
+         body {
+            background-image: url("{% static 'trade_perf/dark_bg.jpg' %}");
+            background-size: fill;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="dailypnl" class="divBorder"></div>
+      <div id="total_pnl" class="divBorder"></div>
 
-    <div class="container text-center">
-      <div class="row align-items-center justify-content-center">
-        <div id="cal_pnl" class="col"></div>
+      <div class="container text-center">
+         <div class="row align-items-center justify-content-center">
+            <div id="cal_pnl" class="col"></div>
+         </div>
       </div>
-    </div>
 
-    <div class="container text-center">
-      <div class="row align-items-center justify-content-center">
-        <div id="top_loss" class="col-6"></div>
-        <div id="top_win" class="col-6"></div>
+      <div class="container text-center">
+         <div class="row align-items-center justify-content-center">
+            <div id="top_loss" class="col-6"></div>
+            <div id="top_win" class="col-6"></div>
+         </div>
       </div>
-    </div>
 
-    <!-- <div class="container-fluid text-center">
+      <!-- <div class="container-fluid text-center">
       <div class="row align-items-center justify-content-center">
         <div id="most_traded" class="col-6"></div>
         <div id="tab_stats" class="col-6"></div>
       </div>
     </div> -->
 
-    <div class="container">
-      <div class="row align-items-start justify-content-center">
-        <div id="most_traded" class="col-5 offset-1"></div>
-        <div class="col-5 table-responsive offset-1">
-          <table
-            id="myTable"
-            class="table table-primary table-hover table-striped table-sm"
-            style="width: 80%"
-          >
-            <caption
-              style="
-                text-align: center;
-                caption-side: top;
-                color: #7fdbff;
-                font-size: 18px;
-              "
-            >
-              Statistics
-            </caption>
-            <thead class="table-dark">
-              <tr>
-                <th scope="col" style="width: 60%">Parameters</th>
-                <th scope="col" style="width: 40%">Values</th>
-              </tr>
-            </thead>
-            <tbody id="table_stats" class="table-group-divider"></tbody>
-          </table>
-        </div>
+      <div class="container">
+         <div class="row align-items-start justify-content-center">
+            <div id="most_traded" class="col-5 offset-1"></div>
+            <div class="col-5 table-responsive offset-1">
+               <table
+                  id="myTable"
+                  class="table table-primary table-hover table-striped table-sm"
+                  style="width: 80%">
+                  <caption
+                     style="
+                        text-align: center;
+                        caption-side: top;
+                        color: #7fdbff;
+                        font-size: 18px;
+                     ">
+                     Statistics
+                  </caption>
+                  <thead class="table-dark">
+                     <tr>
+                        <th scope="col" style="width: 60%">Parameters</th>
+                        <th scope="col" style="width: 40%">Values</th>
+                     </tr>
+                  </thead>
+                  <tbody id="table_stats" class="table-group-divider"></tbody>
+               </table>
+            </div>
+         </div>
       </div>
-    </div>
 
-    <script
-      type="text/javascript"
-      src="{% static 'trade_perf/trade_perfss.js' %}"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+      <script
+         type="text/javascript"
+         src="{% static 'trade_perf/trade_perfss.js' %}"></script>
+      <script
+         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+         crossorigin="anonymous"></script>
+   </body>
 </html>
