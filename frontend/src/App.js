@@ -6,6 +6,7 @@ import "./App.css";
 import TotalPNL from "./components/TotalPNL";
 import CalendarPNL from "./components/CalendarPNL";
 import TopWin from "./components/TopWin";
+import TopLoss from "./components/TopLoss";
 
 const BASE_URL = "http://localhost:8000/api";
 
@@ -54,6 +55,7 @@ function App() {
                   width={width}
                   height={height}
                />
+               <TopLoss data={data} />
                <TopWin data={data} height={height} />
             </>
          )}
