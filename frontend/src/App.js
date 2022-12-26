@@ -7,6 +7,7 @@ import TotalPNL from "./components/TotalPNL";
 import CalendarPNL from "./components/CalendarPNL";
 import TopWin from "./components/TopWin";
 import TopLoss from "./components/TopLoss";
+import MostTraded from "./components/MostTraded";
 
 const BASE_URL = "http://localhost:8000/api";
 
@@ -50,13 +51,14 @@ function App() {
                   height={height}
                />
                <CalendarPNL
-                  className=" min-h-screen"
+                  className=" max-h-screen"
                   data={data}
                   width={width}
                   height={height}
                />
                <TopLoss data={data} />
                <TopWin data={data} height={height} />
+               <MostTraded data={data} />
             </>
          )}
       </div>

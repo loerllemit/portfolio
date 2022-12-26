@@ -12,7 +12,7 @@ function TopWin({ data }) {
          orientation: "h",
          text: assets,
          textposition: "outside",
-         hovertemplate: "symbol: %{text} <br>pnl: %{x} <extra></extra>",
+         hovertemplate: "symbol: %{text} <br>pnl: $ %{x} <extra></extra>",
          cliponaxis: false,
          marker: {
             color: rec,

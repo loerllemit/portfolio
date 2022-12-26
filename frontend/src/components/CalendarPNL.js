@@ -21,7 +21,7 @@ function CalendarPNL({ data, width, height }) {
    ];
    const options = {
       title: "Daily Profit and Loss",
-      height: height,
+      height: 0.8 * height,
       width: 0.8 * width,
       tooltip: { isHtml: true },
       calendar: {
