@@ -5,6 +5,7 @@ import useWindowDimensions from "./utils/useWindowDimensions";
 import "./App.css";
 import TotalPNL from "./components/TotalPNL";
 import CalendarPNL from "./components/CalendarPNL";
+import TopWin from "./components/TopWin";
 
 const BASE_URL = "http://localhost:8000/api";
 
@@ -53,6 +54,7 @@ function App() {
                   width={width}
                   height={height}
                />
+               <TopWin data={data} height={height} />
             </>
          )}
       </div>
