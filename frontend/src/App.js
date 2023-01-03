@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import DailyPNL from "./components/DailyPNL";
 import Loading from "./components/Loading";
 import useWindowDimensions from "./utils/useWindowDimensions";
-import "./App.css";
 import TotalPNL from "./components/TotalPNL";
 import CalendarPNL from "./components/CalendarPNL";
 import TopWin from "./components/TopWin";
 import TopLoss from "./components/TopLoss";
 import MostTraded from "./components/MostTraded";
 import Stats from "./components/Stats";
+import "./App.css";
 
 const BASE_URL = "http://localhost:8000/api";
 
