@@ -25,9 +25,7 @@ function MostTraded({ data }) {
       font: { color: "#7FDBFF" },
       margin: { t: 60, b: 0, l: 0, r: 0 },
    };
-   return (
-      <Plot className="relative max-h-screen" data={trace} layout={layout} />
-   );
+   return <Plot data={trace} layout={layout} />;
 }
 
 export default MostTraded;
